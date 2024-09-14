@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pamadora Timer</title>
+    <style>
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        p {
+            font-size: 25px;
+            color: red;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 50px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        button {
+            width: 100px;
+            height: 50px;
+            border-radius: 20px;
+            border: 1px solid black;
+        }
+
+        .buttons {
+            gap: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <p>Pamadora timer</p>
+        <h1 id="Time">25:00</h1>
+        <div class="buttons">
+            <button style="background-color: gray;" onclick="Cancel()">Cancel</button>
+            <button style="background-color: green;" onclick="Start()" id="Start">Start</button>
+            <button style="background-color: red; display: none;" onclick="Stop()" id="Stop">Stop</button>
+        </div>
+    </div>
+    <script>
+        const Time = document.getElementById('Time')
+        var interval
+        let TimeContent = 25 * 60
+        function Start() {
+            document.getElementById('Start').style.display = 'none'
+            document.getElementById('Stop').style.display = 'inline'
+            interval = setInterval(() => {
+                if (TimeContent !== 0) {
+                    TimeContent -= 1
+                    Time.textContent = `${parseInt(TimeContent / 60)}:${TimeContent % 60}`
+                }
+            }, 1000);
+        }
+        function Cancel() {
+            document.getElementById('Start').style.display = 'inline'
+            document.getElementById('Stop').style.display = 'none'
+            Time.textContent = '25:00';
+            clearInterval(interval)
+        }
+        function Stop() {
+            document.getElementById('Start').style.display = 'inline'
+            document.getElementById('Stop').style.display = 'none'
+            clearInterval(interval)
+        }
+
+    </script>
+</body>
+
+</html>
